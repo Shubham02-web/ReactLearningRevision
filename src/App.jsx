@@ -113,42 +113,82 @@
 
 // export default App;
 
+// import { useState } from "react";
+// import Todo from "./Todo";
+// const App = () => {
+//   const [showBtn, setShowBtn] = useState(false);
+//   const [todo, setTodo] = useState([
+//     {
+//       title: "hey",
+//       description: `I am first Todo With Key hey`,
+//     },
+//     {
+//       title: "hello",
+//       description: `I am second Todo With Key hello`,
+//     },
+//     {
+//       title: "bye",
+//       description: `I am Last Todo with key bye`,
+//     },
+//   ]);
+//   return (
+//     <div>
+//       {showBtn ? (
+//         <button> Show Btn Is True </button>
+//       ) : (
+//         <button>Show Btn is False</button>
+//       )}
+//       {/* {showBtn && <button>Show Btn Is True</button>} */}
+//       {todo.map((todo) => {
+//         // return <Todo key={todo.title} todo={todo} />;
+//         return (
+//           <div key={todo.title}>
+//             <p>title:{todo.title}</p>
+//             <p>desc:{todo.description}</p>
+//           </div>
+//         );
+//       })}
+//       <button onClick={() => setShowBtn(!showBtn)}>change Me </button>
+//     </div>
+//   );
+// };
+
+// export default App;
+
+// Event Handling in React JS
+
 import { useState } from "react";
-import Todo from "./Todo";
 const App = () => {
-  const [showBtn, setShowBtn] = useState(false);
-  const [todo, setTodo] = useState([
-    {
-      title: "hey",
-      description: `I am first Todo With Key hey`,
-    },
-    {
-      title: "hello",
-      description: `I am second Todo With Key hello`,
-    },
-    {
-      title: "bye",
-      description: `I am Last Todo with key bye`,
-    },
-  ]);
+  // const [name, setNaame] = useState("Shubham");
+  const [form, setForm] = useState({});
+
+  const handleChange = (e) => {
+    // setNaame(e.target.value)
+    setForm({ ...form, [e.target.name]: [e.target.value] });
+    console.log(form);
+  };
+  const handleClick = () => {
+    alert("Hey i am handle click event ");
+  };
+  const handleMouseOver = () => {
+    alert("hey i am handle Mouse Over Function In React");
+  };
   return (
     <div>
-      {showBtn ? (
-        <button> Show Btn Is True </button>
-      ) : (
-        <button>Show Btn is False</button>
-      )}
-      {/* {showBtn && <button>Show Btn Is True</button>} */}
-      {todo.map((todo) => {
-        // return <Todo key={todo.title} todo={todo} />;
-        return (
-          <div key={todo.title}>
-            <p>title:{todo.title}</p>
-            <p>desc:{todo.description}</p>
-          </div>
-        );
-      })}
-      <button onClick={() => setShowBtn(!showBtn)}>change Me </button>
+      <button onClick={handleClick}>click me</button>
+      <button onMouseOver={handleMouseOver}>mouse over me </button>
+      <input
+        type="text"
+        name="phone"
+        value={form.phone ? form.phone : ""}
+        onChange={handleChange}
+      />
+      <input
+        type="text"
+        name="email"
+        value={form.email ? form.email : ""}
+        onChange={handleChange}
+      />
     </div>
   );
 };
