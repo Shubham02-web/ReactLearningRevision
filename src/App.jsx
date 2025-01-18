@@ -22,19 +22,57 @@
 
 // State and Hooks in REACT
 
-import React from "react";
-import { useState } from "react";
+// import React from "react";
+// import { useState } from "react";
+// const App = () => {
+//   const [count, setCount] = useState(0);
+//   return (
+//     <div>
+//       <div>{count}</div>
+//       <button
+//         onClick={() => {
+//           setCount(count + 1);
+//         }}
+//       >
+//         Update Count
+//       </button>
+//     </div>
+//   );
+// };
+
+// export default App;
+import { useState, useEffect } from "react";
+// import Navbar from "./component/Navbar";
+
 const App = () => {
-  const [count, setCount] = useState(0);
+  const [value, setValue] = useState(0);
+  const [color, setColor] = useState(0);
+  // const [first, setFirst] = useState(0);
+
+  useEffect(() => {
+    alert("hey i am render on every rendering");
+  });
+  useEffect(() => {
+    alert("i am render when value/count change");
+    setColor(color + 1);
+  }, [value]);
+  useEffect(() => {
+    alert("hey i am render first");
+  }, []);
+
+  useEffect(() => {
+    alert("hey i am run when color was change");
+  }, [color]);
+
   return (
     <div>
-      <div>{count}</div>
+      {/* <Navbar color={"blue" + color} /> */}
       <button
         onClick={() => {
-          setCount(count + 1);
+          setValue(value + 1);
         }}
       >
-        Update Count
+        Count is {value}
       </button>
     </div>
   );
