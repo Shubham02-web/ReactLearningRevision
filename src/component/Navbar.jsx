@@ -18,18 +18,18 @@
 
 // export default Navbar;
 
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
-const Navbar = ({ color }) => {
-  useEffect(() => {
-    alert("hey i am render first");
-  }, []);
+const Navbar = () => {
+  // useEffect(() => {
+  //   alert("hey i am render first");
+  // }, []);
 
-  useEffect(() => {
-    alert("hey i am run when color was change");
-  }, [color]);
+  // useEffect(() => {
+  //   alert("hey i am run when color was change");
+  // }, [color]);
 
-  return <div>I am Navbar Of {color}color hehe</div>;
+  return <div>I am Navbar Of color hehe</div>;
 };
 
 export default Navbar;

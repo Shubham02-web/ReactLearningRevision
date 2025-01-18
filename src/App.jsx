@@ -157,40 +157,70 @@
 
 // Event Handling in React JS
 
-import { useState } from "react";
-const App = () => {
-  // const [name, setNaame] = useState("Shubham");
-  const [form, setForm] = useState({});
+// import { useState } from "react";
+// const App = () => {
+//   // const [name, setNaame] = useState("Shubham");
+//   const [form, setForm] = useState({});
 
-  const handleChange = (e) => {
-    // setNaame(e.target.value)
-    setForm({ ...form, [e.target.name]: [e.target.value] });
-    console.log(form);
-  };
-  const handleClick = () => {
-    alert("Hey i am handle click event ");
-  };
-  const handleMouseOver = () => {
-    alert("hey i am handle Mouse Over Function In React");
-  };
-  return (
-    <div>
-      <button onClick={handleClick}>click me</button>
-      <button onMouseOver={handleMouseOver}>mouse over me </button>
-      <input
-        type="text"
-        name="phone"
-        value={form.phone ? form.phone : ""}
-        onChange={handleChange}
-      />
-      <input
-        type="text"
-        name="email"
-        value={form.email ? form.email : ""}
-        onChange={handleChange}
-      />
-    </div>
-  );
+//   const handleChange = (e) => {
+//     // setNaame(e.target.value)
+//     setForm({ ...form, [e.target.name]: [e.target.value] });
+//     console.log(form);
+//   };
+//   const handleClick = () => {
+//     alert("Hey i am handle click event ");
+//   };
+//   const handleMouseOver = () => {
+//     alert("hey i am handle Mouse Over Function In React");
+//   };
+//   return (
+//     <div>
+//       <button onClick={handleClick}>click me</button>
+//       <button onMouseOver={handleMouseOver}>mouse over me </button>
+//       <input
+//         type="text"
+//         name="phone"
+//         value={form.phone ? form.phone : ""}
+//         onChange={handleChange}
+//       />
+//       <input
+//         type="text"
+//         name="email"
+//         value={form.email ? form.email : ""}
+//         onChange={handleChange}
+//       />
+//     </div>
+//   );
+// };
+
+// export default App;
+
+import Navbar from "./component/Navbar.jsx";
+import Card from "./component/Card.jsx";
+import Footer from "./component/Footer.jsx";
+import User from "./component/User.jsx";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+const App = () => {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Navbar />,
+    },
+    {
+      path: "/Card",
+      element: <Card />,
+    },
+    {
+      path: "/Footer",
+      element: <Footer />,
+    },
+    {
+      path: "user/:username",
+      element: <User />,
+    },
+  ]);
+  return <RouterProvider router={router}></RouterProvider>;
 };
 
 export default App;
