@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // import Card from "./component/Card.jsx";
 // import "./index.css";
 // import Footer from "./component/Footer.jsx";
@@ -82,30 +83,72 @@
 
 // Learning useRef in React
 
-import { useState, useRef, useEffect } from "react";
-import "./App.css";
+// import { useState, useRef, useEffect } from "react";
+// import "./App.css";
 
+// const App = () => {
+//   const [count, setcount] = useState(0);
+//   const btnRef = useRef();
+//   useEffect(() => {
+//     console.log("first rendering.....");
+//     btnRef.current.style.backgroundColor = "red";
+//   }, []);
+//   return (
+//     <div>
+//       <p>Count is {count}</p>
+//       <button
+//         ref={btnRef}
+//         onClick={() => {
+//           setcount(count + 1);
+//         }}
+//       >
+//         Click Me
+//       </button>
+//       <button onClick={() => (btnRef.current.style.display = "none")}>
+//         Change ME
+//       </button>
+//     </div>
+//   );
+// };
+
+// export default App;
+
+import { useState } from "react";
+import Todo from "./Todo";
 const App = () => {
-  const [count, setcount] = useState(0);
-  const btnRef = useRef();
-  useEffect(() => {
-    console.log("first rendering.....");
-    btnRef.current.style.backgroundColor = "red";
-  }, []);
+  const [showBtn, setShowBtn] = useState(false);
+  const [todo, setTodo] = useState([
+    {
+      title: "hey",
+      description: `I am first Todo With Key hey`,
+    },
+    {
+      title: "hello",
+      description: `I am second Todo With Key hello`,
+    },
+    {
+      title: "bye",
+      description: `I am Last Todo with key bye`,
+    },
+  ]);
   return (
     <div>
-      <p>Count is {count}</p>
-      <button
-        ref={btnRef}
-        onClick={() => {
-          setcount(count + 1);
-        }}
-      >
-        Click Me
-      </button>
-      <button onClick={() => (btnRef.current.style.display = "none")}>
-        Change ME
-      </button>
+      {showBtn ? (
+        <button> Show Btn Is True </button>
+      ) : (
+        <button>Show Btn is False</button>
+      )}
+      {/* {showBtn && <button>Show Btn Is True</button>} */}
+      {todo.map((todo) => {
+        // return <Todo key={todo.title} todo={todo} />;
+        return (
+          <div key={todo.title}>
+            <p>title:{todo.title}</p>
+            <p>desc:{todo.description}</p>
+          </div>
+        );
+      })}
+      <button onClick={() => setShowBtn(!showBtn)}>change Me </button>
     </div>
   );
 };
