@@ -41,38 +41,70 @@
 // };
 
 // export default App;
-import { useState, useEffect } from "react";
-// import Navbar from "./component/Navbar";
+// import { useState, useEffect } from "react";
+// // import Navbar from "./component/Navbar";
+
+// const App = () => {
+//   const [value, setValue] = useState(0);
+//   const [color, setColor] = useState(0);
+//   // const [first, setFirst] = useState(0);
+
+//   useEffect(() => {
+//     alert("hey i am render on every rendering");
+//   });
+//   useEffect(() => {
+//     alert("i am render when value/count change");
+//     setColor(color + 1);
+//   }, [value]);
+//   useEffect(() => {
+//     alert("hey i am render first");
+//   }, []);
+
+//   useEffect(() => {
+//     alert("hey i am run when color was change");
+//   }, [color]);
+
+//   return (
+//     <div>
+//       {/* <Navbar color={"blue" + color} /> */}
+//       <button
+//         onClick={() => {
+//           setValue(value + 1);
+//         }}
+//       >
+//         Count is {value}
+//       </button>
+//     </div>
+//   );
+// };
+
+// export default App;
+
+// Learning useRef in React
+
+import { useState, useRef, useEffect } from "react";
+import "./App.css";
 
 const App = () => {
-  const [value, setValue] = useState(0);
-  const [color, setColor] = useState(0);
-  // const [first, setFirst] = useState(0);
-
+  const [count, setcount] = useState(0);
+  const btnRef = useRef();
   useEffect(() => {
-    alert("hey i am render on every rendering");
-  });
-  useEffect(() => {
-    alert("i am render when value/count change");
-    setColor(color + 1);
-  }, [value]);
-  useEffect(() => {
-    alert("hey i am render first");
+    console.log("first rendering.....");
+    btnRef.current.style.backgroundColor = "red";
   }, []);
-
-  useEffect(() => {
-    alert("hey i am run when color was change");
-  }, [color]);
-
   return (
     <div>
-      {/* <Navbar color={"blue" + color} /> */}
+      <p>Count is {count}</p>
       <button
+        ref={btnRef}
         onClick={() => {
-          setValue(value + 1);
+          setcount(count + 1);
         }}
       >
-        Count is {value}
+        Click Me
+      </button>
+      <button onClick={() => (btnRef.current.style.display = "none")}>
+        Change ME
       </button>
     </div>
   );
