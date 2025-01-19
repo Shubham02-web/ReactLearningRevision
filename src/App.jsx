@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 // import Card from "./component/Card.jsx";
 // import "./index.css";
 // import Footer from "./component/Footer.jsx";
@@ -294,25 +293,101 @@
 
 // useCallBack in React
 
-import { useCallback, useState } from "react";
-import Navbar from "./component/Navbar";
-const App = () => {
-  const [count, setCount] = useState(0);
-  const [value, setValue] = useState(0);
-  const [adjective, setAdjective] = useState("yeah");
+// import { useCallback, useState } from "react";
+// import Navbar from "./component/Navbar";
+// const App = () => {
+//   const [count, setCount] = useState(0);
+//   const [value, setValue] = useState(0);
+//   const [adjective, setAdjective] = useState("yeah");
 
-  // const getAdjective = () => {
-  //   return "another" + count;
+//   // const getAdjective = () => {
+//   //   return "another" + count;
+//   // };
+//   const getAdjective = useCallback(() => {
+//     return "another" + count;
+//   }, [count]);
+//   return (
+//     <div>
+//       <Navbar adjective={"good"} getAdjective={getAdjective} />
+//       <h1>hey i am{count}</h1>
+//       <button onClick={() => setCount(() => count + 1)}>click me count</button>
+//       <button onClick={() => setValue(() => value + 1)}>click me value</button>
+//     </div>
+//   );
+// };
+
+// export default App;
+
+// React hook Form , create form and connecting with backend express js
+
+// import { json } from "body-parser";
+import { useForm } from "react-hook-form";
+
+const App = () => {
+  const {
+    register,
+    handleSubmit,
+    // setError,
+    formState: { errors, isSubmitting },
+  } = useForm();
+
+  // const delay = (d) => {
+  //   return new Promise((resolve, reject) => {
+  //     setTimeout(() => {
+  //       resolve();
+  //     }, d * 1000);
+  //   });
   // };
-  const getAdjective = useCallback(() => {
-    return "another" + count;
-  }, [count]);
+  const onSubmit = async (data) => {
+    // await delay(4);
+    let r = await fetch("http://localhost:4000/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    let res = await r.text();
+    console.log(data, res);
+    // if (data.username !== "Shubham") {
+    //   setError("formde", { message: "ur crediantials is invalid " });
+    // }
+    // if (data.username === "Ravi") {
+    //   setError("blocked", { message: "ur blocked " });
+    // }
+  };
   return (
     <div>
-      <Navbar adjective={"good"} getAdjective={getAdjective} />
-      <h1>hey i am{count}</h1>
-      <button onClick={() => setCount(() => count + 1)}>click me count</button>
-      <button onClick={() => setValue(() => value + 1)}>click me value</button>
+      {isSubmitting && <p>Loading...</p>}
+      <div className="container">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <input
+            placeholder="username"
+            type="text"
+            {...register("username", {
+              required: { value: true, message: "these field is required" },
+              minLength: { value: 3, message: "length is less than 3" },
+              maxLength: { value: 8, message: "length is more then 8" },
+            })}
+          />
+          {errors.username && errors.username.message}
+          <br />
+          <input
+            placeholder="password"
+            type="password"
+            {...register("password", {
+              required: { value: true, message: "these field is required" },
+              minLength: { value: 3, message: "length is less than 3" },
+              maxLength: { value: 8, message: "length is more then 8" },
+            })}
+          />
+          {errors.password && errors.password.message}
+          <br />
+          <input disabled={isSubmitting} type="submit" value="Submit" />
+          {errors.formde && errors.formde.message}
+          {errors.blocked && errors.blocked.message}
+        </form>
+      </div>
     </div>
   );
 };
