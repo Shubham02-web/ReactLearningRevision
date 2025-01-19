@@ -227,22 +227,65 @@
 
 // Context in React
 
-import { useState } from "react";
-import { counterContext } from "./context/context.jsx";
-import Navbar from "./component/Navbar.jsx";
-import Card from "./component/Card.jsx";
+// import { useState } from "react";
+// import { counterContext } from "./context/context.jsx";
+// import Navbar from "./component/Navbar.jsx";
+// import Card from "./component/Card.jsx";
 
+// const App = () => {
+//   const [count, setCount] = useState(0);
+//   return (
+//     <div>
+//       <counterContext.Provider value={{ count, setCount }}>
+//         <Navbar />
+//         <Card />
+//         <div>{count}</div>
+
+//         <button onClick={() => setCount(() => count + 1)}>Click me</button>
+//       </counterContext.Provider>
+//     </div>
+//   );
+// };
+
+// export default App;
+
+// useMemo in React
+
+import { useState, useMemo } from "react";
+const nums = new Array(30_000_000).fill(0).map((_, i) => {
+  return {
+    index: i,
+    magic: i === 29_000_000,
+  };
+});
 const App = () => {
   const [count, setCount] = useState(0);
+  const [numbers, setNumbers] = useState(nums);
+  const magical = useMemo(
+    () => numbers.find((item) => item.magic === true),
+    [numbers]
+  );
   return (
     <div>
-      <counterContext.Provider value={{ count, setCount }}>
-        <Navbar />
-        <Card />
-        <div>{count}</div>
-
-        <button onClick={() => setCount(() => count + 1)}>Click me</button>
-      </counterContext.Provider>
+      <span>magical Number is : {magical.index}</span>
+      <p>{count}</p>
+      <button
+        onClick={() => {
+          setCount((count) => count + 1);
+          if (count == 10) {
+            setNumbers(
+              new Array(20_000_000).fill(0).map((_, i) => {
+                return {
+                  index: i,
+                  magic: i === 8_000_000,
+                };
+              })
+            );
+          }
+        }}
+      >
+        click me
+      </button>
     </div>
   );
 };
