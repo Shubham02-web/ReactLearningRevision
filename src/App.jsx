@@ -251,41 +251,68 @@
 
 // useMemo in React
 
-import { useState, useMemo } from "react";
-const nums = new Array(30_000_000).fill(0).map((_, i) => {
-  return {
-    index: i,
-    magic: i === 29_000_000,
-  };
-});
+// import { useState, useMemo } from "react";
+// const nums = new Array(30_000_000).fill(0).map((_, i) => {
+//   return {
+//     index: i,
+//     magic: i === 29_000_000,
+//   };
+// });
+// const App = () => {
+//   const [count, setCount] = useState(0);
+//   const [numbers, setNumbers] = useState(nums);
+//   const magical = useMemo(
+//     () => numbers.find((item) => item.magic === true),
+//     [numbers]
+//   );
+//   return (
+//     <div>
+//       <span>magical Number is : {magical.index}</span>
+//       <p>{count}</p>
+//       <button
+//         onClick={() => {
+//           setCount((count) => count + 1);
+//           if (count == 10) {
+//             setNumbers(
+//               new Array(20_000_000).fill(0).map((_, i) => {
+//                 return {
+//                   index: i,
+//                   magic: i === 8_000_000,
+//                 };
+//               })
+//             );
+//           }
+//         }}
+//       >
+//         click me
+//       </button>
+//     </div>
+//   );
+// };
+
+// export default App;
+
+// useCallBack in React
+
+import { useCallback, useState } from "react";
+import Navbar from "./component/Navbar";
 const App = () => {
   const [count, setCount] = useState(0);
-  const [numbers, setNumbers] = useState(nums);
-  const magical = useMemo(
-    () => numbers.find((item) => item.magic === true),
-    [numbers]
-  );
+  const [value, setValue] = useState(0);
+  const [adjective, setAdjective] = useState("yeah");
+
+  // const getAdjective = () => {
+  //   return "another" + count;
+  // };
+  const getAdjective = useCallback(() => {
+    return "another" + count;
+  }, [count]);
   return (
     <div>
-      <span>magical Number is : {magical.index}</span>
-      <p>{count}</p>
-      <button
-        onClick={() => {
-          setCount((count) => count + 1);
-          if (count == 10) {
-            setNumbers(
-              new Array(20_000_000).fill(0).map((_, i) => {
-                return {
-                  index: i,
-                  magic: i === 8_000_000,
-                };
-              })
-            );
-          }
-        }}
-      >
-        click me
-      </button>
+      <Navbar adjective={"good"} getAdjective={getAdjective} />
+      <h1>hey i am{count}</h1>
+      <button onClick={() => setCount(() => count + 1)}>click me count</button>
+      <button onClick={() => setValue(() => value + 1)}>click me value</button>
     </div>
   );
 };

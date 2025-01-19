@@ -36,18 +36,30 @@
 
 // Use context API
 
-import { useContext } from "react";
-import { counterContext } from "../context/context";
-const Navbar = () => {
-  const value = useContext(counterContext);
+// import { useContext } from "react";
+// import { counterContext } from "../context/context";
+// const Navbar = () => {
+//   const value = useContext(counterContext);
+//   return (
+//     <div>
+//       <h1>{value.count}</h1>
+//       <button onClick={() => value.setCount((count) => count + 1)}>
+//         Click me NAV
+//       </button>
+//     </div>
+//   );
+// };
+
+// export default Navbar;
+import { memo } from "react";
+const Navbar = ({ adjective, getAdjective }) => {
+  console.log("Navbar is render");
   return (
     <div>
-      <h1>{value.count}</h1>
-      <button onClick={() => value.setCount((count) => count + 1)}>
-        Click me NAV
-      </button>
+      <p>Hey i am Adjective {adjective}</p>
+      <button onClick={() => getAdjective()}>{getAdjective()}</button>
     </div>
   );
 };
 
-export default Navbar;
+export default memo(Navbar);
