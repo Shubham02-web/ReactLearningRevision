@@ -1,5 +1,9 @@
 import "./Card.css";
+import { counterContext } from "../context/context.jsx";
+import Navbar from "./Navbar.jsx";
+import { useContext } from "react";
 const Card = () => {
+  const value = useContext(counterContext);
   return (
     // <div className="Card" style={{ overflow: "hidden" }}>
     //   <img
@@ -11,7 +15,11 @@ const Card = () => {
     //   <h1>{props.title}</h1>
     //   <p>{props.description}</p>
     // </div>
-    <h1>Card Page</h1>
+    // Use Context
+    <>
+      <Navbar />
+      <h1>{value.count}</h1>
+    </>
   );
 };
 

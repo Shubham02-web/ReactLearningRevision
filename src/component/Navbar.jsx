@@ -20,16 +20,34 @@
 
 // import { useEffect } from "react";
 
+// const Navbar = () => {
+// useEffect(() => {
+//   alert("hey i am render first");
+// }, []);
+
+// useEffect(() => {
+//   alert("hey i am run when color was change");
+// }, [color]);
+
+// return <div>I am Navbar Of color hehe</div>;
+// };
+
+// export default Navbar;
+
+// Use context API
+
+import { useContext } from "react";
+import { counterContext } from "../context/context";
 const Navbar = () => {
-  // useEffect(() => {
-  //   alert("hey i am render first");
-  // }, []);
-
-  // useEffect(() => {
-  //   alert("hey i am run when color was change");
-  // }, [color]);
-
-  return <div>I am Navbar Of color hehe</div>;
+  const value = useContext(counterContext);
+  return (
+    <div>
+      <h1>{value.count}</h1>
+      <button onClick={() => value.setCount((count) => count + 1)}>
+        Click me NAV
+      </button>
+    </div>
+  );
 };
 
 export default Navbar;

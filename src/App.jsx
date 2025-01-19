@@ -195,32 +195,56 @@
 
 // export default App;
 
+// import Navbar from "./component/Navbar.jsx";
+// import Card from "./component/Card.jsx";
+// import Footer from "./component/Footer.jsx";
+// import User from "./component/User.jsx";
+// import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+// const App = () => {
+//   const router = createBrowserRouter([
+//     {
+//       path: "/",
+//       element: <Navbar />,
+//     },
+//     {
+//       path: "/Card",
+//       element: <Card />,
+//     },
+//     {
+//       path: "/Footer",
+//       element: <Footer />,
+//     },
+//     {
+//       path: "user/:username",
+//       element: <User />,
+//     },
+//   ]);
+//   return <RouterProvider router={router}></RouterProvider>;
+// };
+
+// export default App;
+
+// Context in React
+
+import { useState } from "react";
+import { counterContext } from "./context/context.jsx";
 import Navbar from "./component/Navbar.jsx";
 import Card from "./component/Card.jsx";
-import Footer from "./component/Footer.jsx";
-import User from "./component/User.jsx";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const App = () => {
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Navbar />,
-    },
-    {
-      path: "/Card",
-      element: <Card />,
-    },
-    {
-      path: "/Footer",
-      element: <Footer />,
-    },
-    {
-      path: "user/:username",
-      element: <User />,
-    },
-  ]);
-  return <RouterProvider router={router}></RouterProvider>;
+  const [count, setCount] = useState(0);
+  return (
+    <div>
+      <counterContext.Provider value={{ count, setCount }}>
+        <Navbar />
+        <Card />
+        <div>{count}</div>
+
+        <button onClick={() => setCount(() => count + 1)}>Click me</button>
+      </counterContext.Provider>
+    </div>
+  );
 };
 
 export default App;
