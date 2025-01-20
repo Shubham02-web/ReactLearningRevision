@@ -1,4 +1,4 @@
-:root {
+/* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -66,4 +66,19 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+} */
+
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 35px;
+}
+
+.cards {
+  max-width: 30vw;
+  background-color: black;
+  color: white;
+  border: 1px solid red;
+  text-align: center;
 }

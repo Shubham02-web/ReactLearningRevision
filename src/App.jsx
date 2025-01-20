@@ -321,73 +321,102 @@
 // React hook Form , create form and connecting with backend express js
 
 // import { json } from "body-parser";
-import { useForm } from "react-hook-form";
+// import { useForm } from "react-hook-form";
 
+// const App = () => {
+//   const {
+//     register,
+//     handleSubmit,
+//     // setError,
+//     formState: { errors, isSubmitting },
+//   } = useForm();
+
+//   // const delay = (d) => {
+//   //   return new Promise((resolve, reject) => {
+//   //     setTimeout(() => {
+//   //       resolve();
+//   //     }, d * 1000);
+//   //   });
+//   // };
+//   const onSubmit = async (data) => {
+//     // await delay(4);
+//     let r = await fetch("http://localhost:4000/", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(data),
+//     });
+//     let res = await r.text();
+//     console.log(data, res);
+//     // if (data.username !== "Shubham") {
+//     //   setError("formde", { message: "ur crediantials is invalid " });
+//     // }
+//     // if (data.username === "Ravi") {
+//     //   setError("blocked", { message: "ur blocked " });
+//     // }
+//   };
+//   return (
+//     <div>
+//       {isSubmitting && <p>Loading...</p>}
+//       <div className="container">
+//         <form onSubmit={handleSubmit(onSubmit)}>
+//           <input
+//             placeholder="username"
+//             type="text"
+//             {...register("username", {
+//               required: { value: true, message: "these field is required" },
+//               minLength: { value: 3, message: "length is less than 3" },
+//               maxLength: { value: 8, message: "length is more then 8" },
+//             })}
+//           />
+//           {errors.username && errors.username.message}
+//           <br />
+//           <input
+//             placeholder="password"
+//             type="password"
+//             {...register("password", {
+//               required: { value: true, message: "these field is required" },
+//               minLength: { value: 3, message: "length is less than 3" },
+//               maxLength: { value: 8, message: "length is more then 8" },
+//             })}
+//           />
+//           {errors.password && errors.password.message}
+//           <br />
+//           <input disabled={isSubmitting} type="submit" value="Submit" />
+//           {errors.formde && errors.formde.message}
+//           {errors.blocked && errors.blocked.message}
+//         </form>
+//       </div>
+//     </div>
+//   );
+// };
+// export default App;
+
+import { useState, useEffect } from "react";
 const App = () => {
-  const {
-    register,
-    handleSubmit,
-    // setError,
-    formState: { errors, isSubmitting },
-  } = useForm();
-
-  // const delay = (d) => {
-  //   return new Promise((resolve, reject) => {
-  //     setTimeout(() => {
-  //       resolve();
-  //     }, d * 1000);
-  //   });
-  // };
-  const onSubmit = async (data) => {
-    // await delay(4);
-    let r = await fetch("http://localhost:4000/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    let res = await r.text();
-    console.log(data, res);
-    // if (data.username !== "Shubham") {
-    //   setError("formde", { message: "ur crediantials is invalid " });
-    // }
-    // if (data.username === "Ravi") {
-    //   setError("blocked", { message: "ur blocked " });
-    // }
+  const [cards, setCards] = useState([]);
+  const fetchData = async () => {
+    const r = await fetch("https://jsonplaceholder.typicode.com/posts");
+    const data = await r.json();
+    setCards(data);
+    console.log(data);
   };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
-    <div>
-      {isSubmitting && <p>Loading...</p>}
-      <div className="container">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <input
-            placeholder="username"
-            type="text"
-            {...register("username", {
-              required: { value: true, message: "these field is required" },
-              minLength: { value: 3, message: "length is less than 3" },
-              maxLength: { value: 8, message: "length is more then 8" },
-            })}
-          />
-          {errors.username && errors.username.message}
-          <br />
-          <input
-            placeholder="password"
-            type="password"
-            {...register("password", {
-              required: { value: true, message: "these field is required" },
-              minLength: { value: 3, message: "length is less than 3" },
-              maxLength: { value: 8, message: "length is more then 8" },
-            })}
-          />
-          {errors.password && errors.password.message}
-          <br />
-          <input disabled={isSubmitting} type="submit" value="Submit" />
-          {errors.formde && errors.formde.message}
-          {errors.blocked && errors.blocked.message}
-        </form>
-      </div>
+    <div className="container">
+      {cards.map((card) => {
+        return (
+          <div className="cards" key={card.id}>
+            <div>provided By User : {card.userId}</div>
+            <div>{card.title}</div>
+            <div>{card.body}</div>
+          </div>
+        );
+      })}
     </div>
   );
 };
